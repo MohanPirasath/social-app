@@ -1,6 +1,6 @@
 
 
-import React from 'react'
+import React,{useEffect} from 'react'
 import Container from '@mui/material/Container';
 import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
@@ -11,13 +11,24 @@ import Grid from '@mui/material/Grid';
 import Posts from './Posts/Posts';
 import Form from './Form/Form';
 
+import {getPosts} from "../Actions/posts.js"
+
 // import useStyles from "./style.js"
 import "./APPP.css"
+
+import {useDispatch} from "react-redux"
 
 import FileitImg from "../assests/FileItImg.png"
 
 function Appp() {
   // const classes = useStyles()
+  const dispatch = useDispatch()
+
+useEffect(() => {
+  dispatch(getPosts())
+  
+}, [getPosts()]);
+
   return (
     <Container maxidth="lg">
       <AppBar className="Appbar" position="static" color="inherit">

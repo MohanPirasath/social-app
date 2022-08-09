@@ -1,0 +1,15 @@
+
+.mainContainer{
+    display: flex;
+    align-items: center;
+}
+
+.smMargin{
+    margin: 0;
+
+}
+
+.actionDiv{
+    text-align: center;
+}
+
