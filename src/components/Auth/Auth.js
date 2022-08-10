@@ -7,6 +7,7 @@ import { Container } from '@mui/system';
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import Input from './Input.js';
+import {GoogleLogin} from "react-google-login"
 
 function Auth() {
     const [isSignup,setIsSignup ]= useState(false);
