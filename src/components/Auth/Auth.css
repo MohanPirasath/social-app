@@ -1,0 +1,25 @@
+.paper{
+    margin-top: 8%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2%;
+}
+.root{
+    margin: 1%;
+}
+.avatar{
+    margin: 1%;
+
+}
+.form{
+    width: 100%;
+    margin: 3%;
+
+}
+.submit{
+margin: 3% 0 2% 0;
+}
+.googleButton{
+    margin-bottom: 2%;
+}
