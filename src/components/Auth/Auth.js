@@ -7,16 +7,35 @@ import { Container } from '@mui/system';
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import Input from './Input.js';
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {signup,signin} from "../../Actions/auth.js"
 
+
+
+const initialState= {firstName:"",lastName:"",email:"",password:"",confirmPassword:""}
 
 function Auth() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
     const [isSignup,setIsSignup ]= useState(false);
+    const [ formData , setformData ]=useState(initialState)
     const [showPassword,setShowPassword]=useState(false)
 
     const handleSubmit =(e)=>{
-        e.preventDefault()
+      e.preventDefault()
+      if(isSignup){
+        dispatch(signup(formData,navigate))
+      }else{
+        dispatch(signin(formData,navigate))
+
+      }
+
+       
     }
-    const handleChange =(e)=>{e.preventDefault()
+    const handleChange =(e)=>{
+     setformData({...formData,[e.target.name]:e.target.value})
 
     }
   const handleShowPassword=()=>{
@@ -41,7 +60,7 @@ function Auth() {
                                 <Input name='firstName' label="First Name" handleChange ={handleChange} autoFocus half/>
 
                                
-                                <Input name='firstName' label="First Name" handleChange ={handleChange} half/>
+                                <Input name='lastName' label="Last Name" handleChange ={handleChange} half/>
 
                                 
                                

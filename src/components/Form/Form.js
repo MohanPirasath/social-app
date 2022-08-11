@@ -14,11 +14,12 @@ import "./styles.css"
 import { createPost,updatePost} from '../../Actions/posts.js';
 
 function Form({currentId,setCurrentId}) {
+  const user =JSON.parse(localStorage.getItem("profile"))
   const posts = useSelector((state)=> currentId ? state.posts.find((p)=>p._id === currentId): null);
   const dispatch = useDispatch();
   // const classes = useStyles()
   const [postData,setPostData]=useState({
-    creator:"",title:"",message:"",tags:"",selectedFile:""
+    title:"",message:"",tags:"",selectedFile:""
   })
 
 
@@ -29,21 +30,30 @@ function Form({currentId,setCurrentId}) {
   const handleSubmit = (e) =>{
     e.preventDefault();
     if(currentId){
-    dispatch(updatePost(currentId, postData))
+      dispatch(updatePost(currentId,{...postData,name: user?.result?.name}))
+
+
     Clear()
 
 
     }else{
+      dispatch(createPost({...postData,name: user?.result?.name}))
 
-      dispatch(createPost(postData))
     Clear()
 
     }
   }
+  if(!user?.result?.name){
+    return(
+      <Paper className='paper'>
+        <Typography variant='h6' align='center' > Please signIn to like the post or create the post </Typography>
+      </Paper>
+    )
+  }
   const Clear = () =>{
     
     setCurrentId(null);
-    setPostData({creator:"",title:"",message:"",tags:"",selectedFile:""})
+    setPostData({title:"",message:"",tags:"",selectedFile:""})
 
   }
 
@@ -51,7 +61,7 @@ function Form({currentId,setCurrentId}) {
     <Paper className='paper'>
       <form autoComplete='off' noValidate className='form root' onSubmit={handleSubmit} >
         <Typography variant='h6'> {currentId?"Edit ":"Creat"} a FileIt</Typography>
-        <TextField name='creator' sx={{marginTop:"1.6%"}} variant='outlined' label="Creator" fullWidth value={postData.creator} onChange={(e)=>setPostData({... postData, creator:e.target.value})} />
+        {/* <TextField name='creator' sx={{marginTop:"1.6%"}} variant='outlined' label="Creator" fullWidth value={postData.creator} onChange={(e)=>setPostData({... postData, creator:e.target.value})} /> */}
         <TextField name='title' sx={{marginTop:"1.6%"}} variant='outlined' label="Title" fullWidth value={postData.title} onChange={(e)=>setPostData({... postData, title:e.target.value})} />
         <TextField name='message'sx={{marginTop:"1.6%"}} variant='outlined' label="Message" fullWidth value={postData.message} onChange={(e)=>setPostData({... postData, message:e.target.value})} />
         <TextField name='tags' sx={{marginTop:"1.6%"}} variant='outlined' label="Tags" fullWidth value={postData.tags} onChange={(e)=>setPostData({... postData, tags:e.target.value.split(",")})} />
@@ -59,7 +69,7 @@ function Form({currentId,setCurrentId}) {
         <FileBase  
           type="file"
           multiple={false}
-          onDone={(base64)=>setPostData({...postData,selectedFile:base64})} 
+          onDone={({base64})=>setPostData({...postData,selectedFile:base64})} 
         />
         </div>
         <Button className='buttonSubmit' variant='contained' color='primary' size='large' type='submit' fullWidth>submit</Button>

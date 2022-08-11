@@ -26,7 +26,6 @@ import Auth from './Auth/Auth';
 function Appp() {
 //   const [currentId,setCurrentId]= useState(null)
 //   // const classes = useStyles()
-//   const dispatch = useDispatch()
 
 // useEffect(() => {
 //   dispatch(getPosts())
