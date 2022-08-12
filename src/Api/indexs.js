@@ -2,7 +2,8 @@
 import axios from "axios";
 
 
-const API= axios.create({baseURL:"http://localhost:5000"})
+const API= axios.create({baseURL:"https://file-it-app.herokuapp.com"})
+// const API= axios.create({baseURL:"http://localhost:5000"})
 // const url = "http://localhost:5000"
 
  API.interceptors.request.use((req)=>{
